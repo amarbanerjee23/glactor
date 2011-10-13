@@ -1,0 +1,27 @@
+Java templates for NetBeans IDE 7.0: 
+    Tools -> Options -> Editor -> Code Templates 
+    -> Language: java -> 
+
+import java.util.concurrent.*;
+import lgactor.core.*;
+import lgactor.utils.*;
+
+
+Abbreviation:	actcall
+Expanded text:
+Future<${RET default="Object"}> ${fut} = ${actor instanceof="lgactor.core.IActorRef"}.call(new IMessage<${YourClass}, ${RET}>() {
+    @Override
+    public ${RET} act(${YourClass} actorImpl) throws Exception {
+	throw new NotImplementedException();${cursor}
+    }
+});
+
+
+Abbreviation:	actsend
+Expanded text:
+${actor instanceof="lgactor.core.IActorRef"}.send(new MsgSend<${YourClass}>() {
+    @Override
+    public void recv(${YourClass} actorImpl) {
+	throw new NotImplementedException();${cursor}
+    }
+});
