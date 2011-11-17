@@ -38,7 +38,7 @@ public class ActorRef<A> implements IActorRef<A>
      * @param threadP thread environment
      * @throws Exception
      */
-    public ActorRef(Class cz, ActorThreadPool threadP) throws Exception {
+    public ActorRef(Class<A> cz, ActorThreadPool threadP) throws Exception {
 	this((A) cz.newInstance(), threadP);
     }
     
@@ -71,8 +71,8 @@ public class ActorRef<A> implements IActorRef<A>
 	};
     }
 
-    public Class getImplClass(){
-	return actorImpl.getClass();
+    public Class<A> getImplClass(){
+	return (Class<A>)actorImpl.getClass();
     }
 
     protected void handleException(Exception e) {
@@ -141,7 +141,7 @@ public class ActorRef<A> implements IActorRef<A>
      */
     public static class FutureTaskA<V> extends FutureTask<V>
     {
-	private ActorCore core;
+	private ActorCore<V> core;
 	private ISignal listener;
 	public FutureTaskA(Callable<V> callable, ActorCore core) {
 	    super(callable);
@@ -237,7 +237,7 @@ public class ActorRef<A> implements IActorRef<A>
     protected <V> FutureRef<V> coreSendFuture(Callable<V> call) {
 	FutureTaskA<V> fMsg = new FutureTaskA<V>(call, core);
 	core.send(fMsg);
-	return new FutureRef(fMsg);
+	return new FutureRef<V>(fMsg);
     }
 
 }
