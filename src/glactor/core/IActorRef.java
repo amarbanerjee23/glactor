@@ -105,6 +105,6 @@ public interface IActorRef<A>
      * Get my actor implementation class
      * @return class A
      */
-    Class getImplClass();
+    Class<A> getImplClass();
 
 }

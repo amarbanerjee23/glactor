@@ -30,9 +30,9 @@ public abstract class ActorSelf<A> implements IActSelf<A>
      * @param dest destination actor
      * @param msg message
      */
-    public <V> void sendTo(final IActorRef dest, final IMessage<A, V> msg) {
+    public <V> void sendTo(final IActorRef<A> dest, final IMessage<A, V> msg) {
 	if (msg instanceof MsgCallReply) {
-	    ((MsgCallReply) msg).setCaller(selfRef);
+	    ((MsgCallReply<A,V>) msg).setCaller(selfRef);
 	}
 	dest.send(msg);
     }

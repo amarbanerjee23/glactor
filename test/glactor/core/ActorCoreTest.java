@@ -37,7 +37,7 @@ public class ActorCoreTest
     public void tearDown() {
     }*/
 
-    public static class ActorCoreImpl extends ActorCore
+    public static class ActorCoreImpl extends ActorCore<Object>
     {
 	AtomicBoolean active = new AtomicBoolean();
 
@@ -120,7 +120,7 @@ public class ActorCoreTest
 
     }
 
-    static void tstSub(int nThr) throws Exception {
+    protected void tstSub(int nThr) throws Exception {
 
 	ActorThreadPool threadP = new ThrPoolBasicImpl(nThr);
 	final ActorCoreImpl core = new ActorCoreImpl(threadP);
@@ -195,10 +195,24 @@ public class ActorCoreTest
      * Test of send method, of class ActorCore.
      */
     @Test
-    public void testCore() throws Exception {
-	tstSub(0);
-	tstSub(1);
-	tstSub(7);
+    public void testCore0() throws Exception {
+    	tstSub(0);
+    }
+
+    /**
+     * Test of send method, of class ActorCore.
+     */
+    @Test
+    public void testCore1() throws Exception {
+    	tstSub(1);
+    }
+
+    /**
+     * Test of send method, of class ActorCore.
+     */
+    @Test
+    public void testCore7() throws Exception {
+    	tstSub(7);
     }
 
     @Test
@@ -252,9 +266,11 @@ public class ActorCoreTest
     public static void main(String[] args) throws Exception {
 	ActorCoreTest tst = new ActorCoreTest();
 	tst.testPingpong();
-	tst.testCore();
+	tst.testCore0();
+	tst.testCore1();
+	tst.testCore7();
 	/*
-	 * Each message sent & queued => processed excactly once:
+	 * Each message sent & queued => processed exactly once:
 	 *	#messages sent == #processedMsgs
 	 */
     }

@@ -63,7 +63,7 @@ public abstract class ActorThreadPool
      * @throws InstantiationException if newInstance failed
      * @throws IllegalAccessException 
      */
-    public <A> IActorRef<A> create(Class cz)
+    public <A> IActorRef<A> create(Class<A> cz)
 	throws InstantiationException, IllegalAccessException {
 	return create((A)cz.newInstance());
     }
@@ -77,7 +77,7 @@ public abstract class ActorThreadPool
     public <A> IActorRef<A> create(A actorImpl) {
 	ActorRef<A> self = new ActorRef<A>(actorImpl, this);
 	if (actorImpl instanceof IActSelf){
-	    ((IActSelf)actorImpl).initSelf(self);
+	    ((IActSelf<A>)actorImpl).initSelf(self);
 	}
         return self;
     }
