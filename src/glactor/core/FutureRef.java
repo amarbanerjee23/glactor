@@ -63,9 +63,9 @@ public class FutureRef<V> implements Future<V>
      * @throws InterruptedException
      * @throws ExecutionException
      */
-    public static void awaitAll(FutureRef... lst)
+    public static <V> void awaitAll(FutureRef<V>... lst)
 	    throws InterruptedException, ExecutionException{
-	for(Future fr:lst) fr.get();
+	for(Future<V> fr:lst) fr.get();
     }
 
     /**
@@ -74,7 +74,7 @@ public class FutureRef<V> implements Future<V>
      * @return array index of first Future who finished
      * @throws InterruptedException
      */
-    public static int awaitAny(FutureRef... lst)
+    public static <V> int awaitAny(FutureRef<V>... lst)
 	    throws InterruptedException {
 	//todo ok?
 	final CountDownLatch latch = new CountDownLatch(1);

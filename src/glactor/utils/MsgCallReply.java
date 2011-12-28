@@ -11,9 +11,9 @@ import glactor.core.IMessage;
  */
 public abstract class MsgCallReply<A,V> implements IMessage<A, V>
 {
-    private IActorRef caller;
+    private IActorRef<A> caller;
 
-    public MsgCallReply(IActorRef caller) {
+    public MsgCallReply(IActorRef<A> caller) {
 	this.caller = caller;
     }
 
@@ -24,7 +24,7 @@ public abstract class MsgCallReply<A,V> implements IMessage<A, V>
      * Set caller actor reference (for response messages)
      * @param caller
      */
-    public void setCaller(IActorRef caller) {
+    public void setCaller(IActorRef<A> caller) {
 	this.caller = caller;
     }
 

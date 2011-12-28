@@ -28,7 +28,7 @@ public class FutureSL<V> extends FutureTask<V>
      */
     public static <V> FutureSL<V> create(
 	    ActorThreadPool threadP, Callable<V> callable) {
-	FutureSL fut = new FutureSL<V>(callable);
+	FutureSL<V> fut = new FutureSL<V>(callable);
 	fut.threadP = threadP;
 	threadP.submit(fut);
 	return fut;

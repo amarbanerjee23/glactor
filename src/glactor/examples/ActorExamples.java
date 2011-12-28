@@ -340,20 +340,20 @@ public class ActorExamples
 	ActorThreadPool threadP = new ThrPoolBasicImpl(4);
 	class Impl{int value=0, count;}
 	IActorRef<Impl> actor = threadP.create(new Impl());
-	SendProxy setProxy = new SendProxy<Impl, Integer>(actor) {
+	SendProxy<Impl, Integer> setProxy = new SendProxy<Impl, Integer>(actor) {
 	    @Override
 	    protected void act(Impl impl, Integer value) {
 		impl.value = value;
 	    }
 	};
-	CallProxy getProxy = new CallProxy<Impl, Integer, String>(actor) {
+	CallProxy<Impl, Integer, String> getProxy = new CallProxy<Impl, Integer, String>(actor) {
 	    @Override
 	    protected String act(Impl impl, Integer value) throws Exception {
 		return "" + impl.value;
 	    }
 	};
 	for (int i = 0; i < 64; i = i * 2 + 1) {
-	    Future previous = getProxy.call();
+	    Future<String> previous = getProxy.call();
 	    setProxy.send(i);
 	    log(" " + i + " -> " + previous.get());
 	}
